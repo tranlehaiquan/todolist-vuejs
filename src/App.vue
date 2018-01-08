@@ -3,15 +3,21 @@
     <div class="todolist">
       <todo-status :todoListNumber="todoList.length"></todo-status>
       <todo-new @add="add"></todo-new>
-      <ul class="todolist__items" v-if="todoList.length">
+      <transition-group
+        tag="ul"
+        class="todolist__items"
+        v-if="todoList.length"
+        enter-active-class="rubberBand animated"
+        leave-active-class="bounceOut animated"
+      >
         <li
           is="todo-item"
           v-for="(todo, index) in todoList"
           v-bind="{todo}"
-          v-bind:key="index"
+          v-bind:key="todo"
           @remove="remove">
         </li>
-      </ul>
+      </transition-group>
     </div>
   </div>
 </template>
@@ -100,7 +106,7 @@ body {
   padding: 8px 10px;
   margin-bottom: 15px;
   border-radius: 4px;
-  animation: slaceAppear .3s ease-out;
+  /* animation: slaceAppear .3s ease-out; */
   position: relative;
 }
 .todolist__title {
